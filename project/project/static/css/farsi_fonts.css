@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'Bnazanin';
+    src: url('../fonts/BNazanin.ttf')  format('truetype');
+    font-weight: bolder;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'yekan';
+    src: url('../fonts/Yekan.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'BTitrBold';
+    src: url('../fonts/BTitrBold.ttf') format('truetype');
+}

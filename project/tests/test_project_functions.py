@@ -1,4 +1,3 @@
-from datetime import tzinfo
 from django.test import TestCase
 from freezegun import freeze_time 
 from project.functions import (datetime, jdatetime, timezone,convert_to_jalali_date, convert_to_jalali_datetime, date_farsi_month_name, datetime_farsi_month_name)

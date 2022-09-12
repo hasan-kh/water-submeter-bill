@@ -53,10 +53,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'django_jalali',
     'adminsortable2',
     'django_extensions',
+    'ckeditor',
+    'ckeditor_uploader',
     'building',
+    
 ]
 
 MIDDLEWARE = [
@@ -75,7 +79,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -140,7 +144,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'project/static',
+]
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -152,3 +163,80 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #     ('en', _('English')),
 #     ('fa', _('Farsi')),
 # ]
+
+
+# My variables
+CITY_COEFFICIENT = 1.49  # tehran
+
+# CKEditor configs
+CKEDITOR_UPLOAD_PATH = "ck_uploads/"
+# Restrict access to uploaded images to the uploading user
+CKEDITOR_RESTRICT_BY_USER = "True"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        
+        'skin': 'moono', # also have moonocolor, moono-dark
+        'toolbar_Basic': [
+            ['Source', '-', 'Bold', 'Italic']
+        ],
+        'toolbar_Custom': [
+            {'name': 'document', 
+                'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', 'ExportPdf', '-', 'Templates']},
+            
+            {'name': 'clipboard', 'items': ['PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+            
+            {'name': 'editing', 'items': ['Find', '-', 'SelectAll']},
+            
+            '/',
+            
+            {'name': 'basicstyles',
+             'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+           
+            {'name': 'paragraph',
+             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
+                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl']},
+           
+            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+           
+            {'name': 'insert',
+             'items': ['Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak']},
+            '/',
+           
+            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
+           
+            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+           
+            {'name': 'tools', 'items': ['Maximize', 'ShowBlocks', 'EmojiPanel']},
+           
+            '/',  # put this to force next toolbar on new line
+           
+            {'name': 'Customtools', 'items': [
+                # put the name of your editor.ui.addButton here
+                'Preview',
+                'Maximize',
+                'CodeSnippet'
+            ]},
+        ],
+        'toolbar': 'Custom',  # put selected toolbar config here
+        'toolbarCanCollapse': True,
+        'tabSpaces': 4,
+
+
+        'extraPlugins': ','.join([
+
+            'uploadimage', # the upload image feature
+
+            'autocomplete',
+            'textmatch',
+            'textwatcher',
+            'emoji',
+        ]),
+        
+         # we can pass list too, for multiple css files
+        'contentsCss': '/static/css/farsi_fonts.css',
+        'font_names': 'BNazanin; Yekan; BTitrBold; \
+            Times New Roman; Courier New; Courier; Arial; Comic Sans MS; \
+            Georgia; Lucida Sans Unicode; Tahoma; Trebuchet MS; Verdana'
+    }
+}
